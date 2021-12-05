@@ -5,6 +5,9 @@ let operator;
 const clearButton = document.querySelector('.calculation-buttons button[data-operation="clear"]');
 clearButton.addEventListener('click', clear);
 
+const backspaceButton = document.querySelector('.calculation-buttons button[data-operation="backspace"]');
+backspaceButton.addEventListener('click', backspace);
+
 const addButton = document.querySelector(`.calculation-buttons button[data-operation="add"]`);
 addButton.addEventListener('click', function() {
     operands[0] = +display.textContent;
@@ -76,4 +79,8 @@ function clear() {
     operands = [];
     operator = null;
     display.textContent = '';
+}
+
+function backspace() {
+    display.textContent = display.textContent.slice(0, -1);
 }
