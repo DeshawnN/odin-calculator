@@ -8,7 +8,8 @@
     <body>
         <h1>Calculator</h1>
         <div class="calculator">
-            <div class="display">2 + 2 = 4</div>
+            <div class="display">
+            </div>
             <div class="buttons">
                 <div class="number-buttons">
                     <button>7</button>
@@ -21,13 +22,15 @@
                     <button>2</button>
                     <button>3</button>
                     <button>0</button>
+                    <button>.</button>
                 </div>
                 <div class="calculation-buttons">
-                    <button>+</button>
-                    <button>-</button>
-                    <button>*</button>
-                    <button>/</button>
-                    <button class="clear-button">Clear</button>
+                    <button data-operation="add">+</button>
+                    <button data-operation="subtract">-</button>
+                    <button data-operation="multiply">*</button>
+                    <button data-operation="divide">/</button>
+                    <button data-operation="operate">=</button>
+                    <button data-operation="clear">Clear</button>
                 </div>
             </div>
         </div>
