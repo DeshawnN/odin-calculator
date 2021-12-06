@@ -1,6 +1,9 @@
-const display = document.querySelector(".display");
-let operands = [];
-let operator;
+const currentOperation = document.querySelector('[data-current-operation]');
+const previousOperation = document.querySelector('[data-previous-operation]');
+let currentOperand = "";
+let previousOperand = "";
+let operator = undefined;
+let operationSymbol = undefined;
 
 const clearButton = document.querySelector('.calculation-buttons button[data-operation="clear"]');
 clearButton.addEventListener('click', clear);
@@ -8,49 +11,84 @@ clearButton.addEventListener('click', clear);
 const backspaceButton = document.querySelector('.calculation-buttons button[data-operation="backspace"]');
 backspaceButton.addEventListener('click', backspace);
 
-const addButton = document.querySelector(`.calculation-buttons button[data-operation="add"]`);
-addButton.addEventListener('click', function() {
-    operands[0] = +display.textContent;
-    display.textContent = "";
-    operator = add;
+const addButton = document.querySelector('[data-add]');
+addButton.addEventListener('click', () => {
+    setOperator(add);
+    updateDisplay();
 });
 
-const subtractButton = document.querySelector('.calculation-buttons button[data-operation="subtract"]');
-subtractButton.addEventListener('click', function() {
-    operands[0] = +display.textContent;
-    display.textContent = "";
-    operator = subtract;
+const subtractButton = document.querySelector('[data-subtract]');
+subtractButton.addEventListener('click', () => {
+    setOperator(subtract);
+    updateDisplay();
 });
 
-const multiplyButton = document.querySelector('.calculation-buttons button[data-operation="multiply"]');
+const multiplyButton = document.querySelector('[data-multiply]');
 multiplyButton.addEventListener('click', () => {
-    operands[0] = +display.textContent;
-    display.textContent = "";
-    operator = multiply;
+    setOperator(multiply);
+    updateDisplay();
 });
 
-const divideButton = document.querySelector('.calculation-buttons button[data-operation="divide"]');
+const divideButton = document.querySelector('[data-divide]');
 divideButton.addEventListener('click', () => {
-    operands[0] = +display.textContent;
-    display.textContent = "";
-    operator = divide;
+    setOperator(divide);
+    updateDisplay();
 });
 
-const equalButton = document.querySelector('.calculation-buttons button[data-operation="operate"]');
-equalButton.addEventListener('click', function() {
-    operands[1] = +display.textContent;
-    let result = operator(operands[0], operands[1]);
-    if (Math.floor(result) !== result) {
-        result = result.toFixed(2);
+const equalsButton = document.querySelector("[data-equals]");
+equalsButton.addEventListener('click', () => {
+    if (!currentOperand || !previousOperand) return;
+    if (operator === divide && currentOperand == 0) {
+        alert("division-by-zero operation detected, we'll be in touch...");
+        return;
     }
-    operands[0] = result;
-    display.textContent = result;
+    operate(operator, +previousOperand, +currentOperand);
+    updateDisplay();
 });
 
 const buttons = document.querySelectorAll(".number-buttons button");
 buttons.forEach(button => button.addEventListener('click', event => {
-    display.textContent += button.textContent;
+    appendNumber(event.target.textContent);
+    updateDisplay();
 }));
+
+function updateDisplay() {
+    currentOperation.textContent = currentOperand;
+    if (operationSymbol != null) {
+        previousOperation.textContent = `${previousOperand} ${operationSymbol}`;
+    }
+}
+
+function setOperationSymbol() {
+    switch (operator) {
+        case add:
+            return "+";
+        case subtract:
+            return "-";
+        case multiply:
+            return "*";
+        case divide:
+            return "÷";
+        default:
+            return;
+    }
+}
+
+function appendNumber(number) {
+    if (number === '.' && currentOperand.includes(".")) return;
+    currentOperand = currentOperand.toString() + number;
+}
+
+function setOperator(operation) {
+    if (!currentOperand) return;
+    if (previousOperand !== '') {
+        operate(operator, +previousOperand, +currentOperand);
+    }
+    operator = operation;
+    operationSymbol = setOperationSymbol(operator);
+    previousOperand = currentOperand;
+    currentOperand = '';
+}
 
 function add(a, b) {
     return a + b;
@@ -69,18 +107,29 @@ function divide(a, b) {
 }
 
 function operate(action, a, b) {
-    const result = action(a, b);
-    operands = [result];
-    operator = null;
-    return result;
+    let result = action(a, b);
+    if (Math.floor(result) !== result) {
+        result = result.toFixed(2);
+    }
+    currentOperand = result.toString();
+    previousOperand = "";
+    operator = undefined;
+    operationSymbol = '';
 }
 
 function clear() {
-    operands = [];
-    operator = null;
-    display.textContent = '';
+    previousOperand = '';
+    currentOperand = '';
+    operator = undefined;
+    operationSymbol = '';
+    clearDisplay();
+}
+
+function clearDisplay() {
+    updateDisplay();
 }
 
 function backspace() {
-    display.textContent = display.textContent.slice(0, -1);
+    currentOperand = currentOperand.slice(0, -1);
+    updateDisplay();
 }
