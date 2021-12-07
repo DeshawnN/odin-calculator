@@ -1,7 +1,6 @@
 .calculator {
-    display: flex;
+    display: grid;
     width: 350px;
-    flex-direction: column;
     margin: 0 auto;
     background-color: black;
     border: 2px solid gray;
@@ -20,29 +19,17 @@
 }
 
 .buttons {
+    margin: 5px;
+}
+
+button {
+    width: 24%;
+    height: 64px
+}
+
+.other-buttons {
+    margin-top: 5px;
     display: flex;
-    margin: 5px
-}
+    justify-content:space-evenly
 
-.number-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2px;
-    flex: 3
-}
-
-.number-buttons button {
-    width: 80px;
-    height: 60px
-}
-
-.calculation-buttons {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    flex: 1
-}
-
-.calculation-buttons button {
-    width: 80px;
 }

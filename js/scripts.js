@@ -5,10 +5,10 @@ let previousOperand = "";
 let operator = undefined;
 let operationSymbol = undefined;
 
-const clearButton = document.querySelector('.calculation-buttons button[data-operation="clear"]');
+const clearButton = document.querySelector('[data-clear]');
 clearButton.addEventListener('click', clear);
 
-const backspaceButton = document.querySelector('.calculation-buttons button[data-operation="backspace"]');
+const backspaceButton = document.querySelector('[data-backspace]');
 backspaceButton.addEventListener('click', backspace);
 
 const addButton = document.querySelector('[data-add]');
@@ -46,7 +46,7 @@ equalsButton.addEventListener('click', () => {
     updateDisplay();
 });
 
-const buttons = document.querySelectorAll(".number-buttons button");
+const buttons = document.querySelectorAll("[data-number]");
 buttons.forEach(button => button.addEventListener('click', event => {
     appendNumber(event.target.textContent);
     updateDisplay();
