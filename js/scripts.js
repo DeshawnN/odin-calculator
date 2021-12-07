@@ -59,6 +59,22 @@ function updateDisplay() {
     }
 }
 
+function getOperatorFromSymbol(symbol) {
+    switch(symbol) {
+        case "+":
+            return add;
+        case "-":
+            return subtract;
+        case "*":
+            return multiply;
+        case "/":
+        case "÷":
+            return divide;
+        default:
+            return;
+    }
+}
+
 function setOperationSymbol() {
     switch (operator) {
         case add:
@@ -108,6 +124,7 @@ function divide(a, b) {
 
 function operate(action, a, b) {
     let result = action(a, b);
+    console.log(typeof result);
     if (Math.floor(result) !== result) {
         result = result.toFixed(2);
     }
@@ -132,4 +149,31 @@ function clearDisplay() {
 function backspace() {
     currentOperand = currentOperand.slice(0, -1);
     updateDisplay();
+}
+
+const operators = ["+", "-", "/", "*", "="];
+
+window.addEventListener('keydown', (event) => {
+    const pressedKey = event.key;
+
+    if (!isValidKey(pressedKey)) return;
+
+    if (operators.includes(pressedKey)) {
+        setOperator(getOperatorFromSymbol(pressedKey));
+    } else if (!isNaN(pressedKey) || pressedKey === ".") {
+        appendNumber(pressedKey);
+    } else if (pressedKey === "Enter") {
+        operate(operator, +previousOperand, +currentOperand);
+    } else {
+        backspace();
+    }
+    updateDisplay();
+    
+});
+
+function isValidKey(key) {
+    if ((isNaN(key) && 
+        !operators.includes(key) && 
+        key !== '.') && (key !== "Backspace" && key !== "Enter")) return;
+    return true;
 }
