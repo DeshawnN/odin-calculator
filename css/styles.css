@@ -1,38 +1,48 @@
 .calculator {
     display: flex;
-    width: 500px;
+    width: 350px;
     flex-direction: column;
     margin: 0 auto;
+    background-color: black;
+    border: 2px solid gray;
+    border-radius: 3px;
 }
 
 .display {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    text-align: center;
+    background-color: rgb(116, 163, 116);
+    margin: 5px;
+    border-radius: 1px;
 }
-
 .display > * {
-    min-height: 18px
+    min-height: 18px;
+    text-align: end;
+    padding-right: 5px;
 }
 
 .buttons {
     display: flex;
+    margin: 5px
 }
+
 .number-buttons {
-    flex: 4;
-    flex-wrap: wrap;
     display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    flex: 3
 }
+
 .number-buttons button {
-    flex: 33%;
+    width: 80px;
+    height: 60px
 }
 
 .calculation-buttons {
     display: flex;
-    flex: 1;
-    flex-direction: column;
-}
-.calculation-buttons button {
+    flex-direction: row;
+    flex-wrap: wrap;
     flex: 1
+}
+
+.calculation-buttons button {
+    width: 80px;
 }
