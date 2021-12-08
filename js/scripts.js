@@ -174,8 +174,8 @@ window.addEventListener('keydown', (event) => {
 });
 
 function isValidKey(key) {
-    if ((isNaN(key) && 
-        !operators.includes(key) && 
-        key !== '.') && (key !== "Backspace" && key !== "Enter" && key != "Escape")) return;
+    if ((isNaN(key) && !operators.includes(key) && key !== '.') && 
+        (key !== "Backspace" && key !== "Enter" && key != "Escape") || 
+        key === " ") return;
     return true;
 }
