@@ -4,7 +4,7 @@
     margin: 0 auto;
     background-color: black;
     border: 2px solid gray;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 
 .display {
@@ -22,13 +22,20 @@
     margin: 5px;
 }
 
+.buttons button {
+    background-color: rgb(65, 65, 65);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    border-radius: 5px;
+    margin: 2px 0;
+}
+
 button {
     width: 24%;
     height: 64px
 }
 
 .other-buttons {
-    margin-top: 5px;
     display: flex;
     justify-content:space-evenly
 
