@@ -14,7 +14,7 @@
 }
 .display > * {
     font-size: 36px;
-    min-height: 36px;
+    min-height: 42px;
     text-align: end;
     padding-right: 5px;
     word-break: break-all;
