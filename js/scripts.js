@@ -124,7 +124,6 @@ function divide(a, b) {
 
 function operate(action, a, b) {
     let result = action(a, b);
-    console.log(typeof result);
     if (Math.floor(result) !== result) {
         result = result.toFixed(2);
     }
@@ -163,6 +162,7 @@ window.addEventListener('keydown', (event) => {
     } else if (!isNaN(pressedKey) || pressedKey === ".") {
         appendNumber(pressedKey);
     } else if (pressedKey === "Enter") {
+        if (!previousOperand || !currentOperand) return;
         operate(operator, +previousOperand, +currentOperand);
     } else {
         backspace();
