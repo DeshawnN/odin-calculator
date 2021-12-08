@@ -164,8 +164,10 @@ window.addEventListener('keydown', (event) => {
     } else if (pressedKey === "Enter") {
         if (!previousOperand || !currentOperand) return;
         operate(operator, +previousOperand, +currentOperand);
-    } else {
+    } else if (pressedKey === "Backspace") {
         backspace();
+    } else {
+        clear();
     }
     updateDisplay();
     
@@ -174,6 +176,6 @@ window.addEventListener('keydown', (event) => {
 function isValidKey(key) {
     if ((isNaN(key) && 
         !operators.includes(key) && 
-        key !== '.') && (key !== "Backspace" && key !== "Enter")) return;
+        key !== '.') && (key !== "Backspace" && key !== "Enter" && key != "Escape")) return;
     return true;
 }
